@@ -1,0 +1,47 @@
+<resources>
+
+    <string name="app_name">DynUIParts</string>
+	
+    <string name="draglistview_header_hint_normal">下拉刷新</string>
+    <string name="draglistview_header_hint_ready">松开刷新数据</string>
+    <string name="draglistview_header_hint_loading">正在加载&#8230;</string>
+    <string name="draglistview_header_last_time">上次更新时间：</string>
+    <string name="draglistview_footer_hint_normal">查看更多</string>
+    <string name="draglistview_footer_hint_ready">松开载入更多</string>
+    
+    <string name="pull_to_pullable_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_pullable_refresh_release_label">松开后刷新</string>
+    <string name="pull_to_pullable_refresh_refreshing_label">刷新\u2026</string>
+    <string name="pull_to_pullable_refresh_footer_release_label">松开后加载</string>
+    <string name="pull_to_pullable_refresh_footer_pull_label">上拉加载更多</string>
+    <string name="pull_to_pullable_refresh_footer_refreshing_label">加载中\u2026</string>
+    
+    <string name="net_loading">正在加载&#8230;</string>
+    <string name="net_error">加载数据失败，触摸屏幕重试</string>
+    
+    <string name="waiting_tips">请稍候&#8230;</string>
+    
+    <string name="pullable_pull_to_loadmore_message">下拉加载更多</string>
+    <string name="pullable_pull_to_refresh">下拉刷新</string>
+    <string name="pullable_release_to_refresh">释放立即刷新</string>
+    <string name="pullable_refreshing">正在刷新...</string>
+    <string name="pullable_refresh_succeed">刷新成功</string>
+    <string name="pullable_refresh_fail">刷新失败</string>
+    <string name="pullable_pullup_to_load">上拉加载更多</string>
+    <string name="pullable_release_to_load">释放立即加载</string>
+    <string name="pullable_loading">正在加载...</string>
+    <string name="pullable_load_succeed">加载成功</string>
+    <string name="pullable_load_fail">加载失败</string>
+    
+    <string name="guide_strat_name">进入</string>
+
+    <string name="auto_update_titlebar">软件更新</string>
+    <string name="auto_update_ok">立即更新</string>
+    <string name="auto_update_no">暂不更新</string>
+    <string name="auto_update_cancel">取消</string>
+    <string name="auto_update_current">当前版本：v1.0.1</string>
+    <string name="auto_update_title">发现新版本：v1.0.1</string>
+    <string name="auto_update_notes">1.合并已购列表与赠送列表\n2.优化下载逻辑\n3.修改部分bug\n4.针对iOS7优化</string>
+    <string name="auto_update_confirm">是否立即下载并安装？</string>
+    <string name="dialog_waiting_cancel">取消</string>
+</resources>

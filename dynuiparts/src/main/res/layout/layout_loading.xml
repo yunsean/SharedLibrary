@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_panel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone">
+    <com.dylan.uiparts.imageview.AutoAdjustImageView
+	    android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+    	android:visibility="gone"
+        android:contentDescription="@null"/> 
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    		android:gravity="center"
+        android:orientation="vertical">
+	    <ImageButton 
+	        android:id="@+id/indicator"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:background="@null"
+	        android:src="@drawable/net_loading"
+	        android:contentDescription="@null"/>
+	    <TextView 
+	        android:id="@+id/net_tips"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="15dip"
+	        android:textColor="#ff888888"
+	        android:textSize="13sp"
+	        android:text="@string/net_loading"/>
+	</LinearLayout>
+</RelativeLayout>
+

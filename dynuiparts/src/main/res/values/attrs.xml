@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>  
+    
+	<declare-styleable name="NetImageView">   
+        <attr name="niv_defalutImage" format="reference"/>
+        <attr name="niv_loadingImage" format="reference"/>
+        <attr name="niv_roundedImage" format="boolean" />
+		<attr name="niv_circleWidth" format="dimension"/>   
+		<attr name="niv_circleColor" format="color"/> 
+		<attr name="niv_imageAspect" format="float"/>
+	</declare-styleable>      
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_defalutImage" format="reference"/>
+        <attr name="civ_border_width" format="integer" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+        <attr name="civ_image_aspect" format="float" />
+        <attr name="civ_url" format="string" />
+    </declare-styleable>
+	<declare-styleable name="NetImageBanner">   
+	    <attr name="nib_layoutResId" format="reference"/>
+        <attr name="nib_defalutItemImage" format="reference"/>
+        <attr name="nib_loadingItemImage" format="reference"/>
+		<attr name="nib_bannerAspect" format="float"/>
+        <attr name="nib_forbidFlip" format="boolean" />
+        <attr name="nib_hideDot" format="boolean" />
+        <attr name="nib_hideTitle" format="boolean" />
+        <attr name="nib_forbidTimer" format="boolean" />
+        <attr name="nib_allowCycleScroll" format="boolean" />
+        <attr name="nib_accelerationScroll" format="boolean" />
+        <attr name="nib_titleBackground" format="reference" />
+        <attr name="nib_titleBackgroundColor" format="color" />
+        <attr name="nib_titleTextColor" format="color" />
+	</declare-styleable>
+    <declare-styleable name="SuperImageView">
+        <attr name="siv_image_aspect" format="float" />
+        <attr name="siv_fixed_direction" format="enum">
+            <enum name="width" value="1" />
+            <enum name="height" value="2" />
+        </attr>
+        <attr name="siv_relative_padding" format="fraction" />
+    </declare-styleable>
+
+    <declare-styleable name="CleanableEditText">
+        <attr name="cet_button" format="reference"/>  
+        <attr name="cet_autoHide" format="boolean"/> 
+        <attr name="cet_onlyEditing" format="boolean"/>   
+	</declare-styleable> 	
+	
+	<declare-styleable name="AspectLayout">   
+        <attr name="al_aspect" format="float"/>   
+	</declare-styleable>
+		
+	<attr name="SwitchStyle" format="reference" />
+    <declare-styleable name="Switch">
+	    <attr name="sw_textLeft" format="string"/>
+	    <attr name="sw_textRight" format="string"/>
+	    <attr name="sw_switchMinWidth" format="dimension" />
+	    <attr name="sw_switchPadding" format="dimension" />	    
+	    <attr name="sw_colorUnChecked" format="color" />	    
+	    <attr name="sw_colorChecked" format="color" />	    
+	    <attr name="sw_backgroundDrawable" format="reference" />	    
+	    <attr name="sw_switchDrawable" format="dimension" />
+	    <attr name="sw_innerPadding" format="dimension" />	   
+	    <attr name="sw_isChecked" format="boolean" />	
+	</declare-styleable>
+	    
+	<attr name="RippleStyle" format="reference" />
+    <declare-styleable name="RippleView">
+	    <attr name="rv_rippleColor" format="color"/>
+	    <attr name="rv_focusColor" format="color"/>    
+	</declare-styleable>
+	
+	<attr name="LetterListStyle" format="reference" />
+    <declare-styleable name="LetterList">   
+        <attr name="ll_backColor" format="color"/>
+        <attr name="ll_backHightlightColor" format="color"/>
+        <attr name="ll_textColor" format="color"/>
+		<attr name="ll_textHighlightColor" format="color"/>   
+	</declare-styleable>
+	
+	<attr name="LineGridViewStyle" format="reference" />
+    <declare-styleable name="LineGridView">   
+        <attr name="lgv_lineColor" format="color"/>
+	</declare-styleable>
+	
+    <attr name="SegmentBarStyle" format="reference" />
+    <declare-styleable name="SegmentBar">   
+        <attr name="sb_itemBackground" format="reference"/>
+        <attr name="sb_divider" format="reference"/>
+        <attr name="sb_textColor" format="color"/>
+        <attr name="sb_textSize" format="dimension"/>
+	    <attr name="sb_textNormalColor" format="color"/>
+	    <attr name="sb_textSelectedColor" format="color" />
+	    <attr name="sb_textPressedColor" format="color" />	    
+	    <attr name="sb_backgroundBegin" format="reference" />	    
+	    <attr name="sb_backgroundMiddle" format="reference" />	    
+	    <attr name="sb_backgroundEnd" format="reference" />	 
+	    <attr name="sb_paddingLeft" format="dimension"/>	 
+	    <attr name="sb_paddingRight" format="dimension"/>	 
+	    <attr name="sb_paddingTop" format="dimension"/>	 
+	    <attr name="sb_paddingBottom" format="dimension"/> 
+        <attr name="sb_options" format="reference" />
+	</declare-styleable>
+	
+    <attr name="FontableViewStyle" format="reference" />
+    <declare-styleable name="FontableView">
+        <attr name="fv_family" format="string" />
+        <attr name="fv_bold" format="boolean" />
+        <attr name="fv_strikeThru" format="boolean" />
+        <attr name="fv_underline" format="boolean" />
+    </declare-styleable>
+    
+    <declare-styleable name="ArcSeekbar">
+        <attr name="asb_thumb" format="reference" />
+        <attr name="asb_thumbOffset" format="dimension" />        
+        <attr name="asb_showOnly" format="boolean" />
+        <attr name="asb_max" format="integer" />
+        <attr name="asb_progressWidth" format="dimension" />
+        <attr name="asb_arcWidth" format="dimension" />
+        <attr name="asb_progress" format="integer" />
+        <attr name="asb_rotation" format="integer" />
+        <attr name="asb_startAngle" format="integer" />
+        <attr name="asb_sweepAngle" format="integer" />
+        <attr name="asb_arcColor" format="color" />        
+        <attr name="asb_arcStartColor" format="color" />
+        <attr name="asb_arcEndColor" format="color" />
+        <attr name="asb_progressColor" format="color" />
+        <attr name="asb_roundEdges" format="boolean" />
+        <attr name="asb_touchInside" format="boolean" />
+        <attr name="asb_clockwise" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="ArcSeekbarTheme">
+        <attr name="ast_seekArcStyle" format="reference"></attr>        
+    </declare-styleable>
+    <declare-styleable name="ColorSpotImageView">
+        <attr name="csiv_spotColor" format="color"></attr>        
+    </declare-styleable>
+        
+    <declare-styleable name="SmartView">
+        <attr name="sv_bgcolor_normal" format="color" />
+        <attr name="sv_bgcolor_pressed" format="color" />
+        <attr name="sv_bgcolor_disabled" format="color" />
+        <attr name="sv_shadowEnabled" format="boolean" />
+        <attr name="sv_shadowColor" format="color" />
+        <attr name="sv_shadowHeight" format="dimension" />
+        <attr name="sv_txcolor_normal" format="color" />
+        <attr name="sv_txcolor_pressed" format="color" />
+        <attr name="sv_txcolor_disabled" format="color" />
+        <attr name="sv_cornerRadius" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="SmartImageButton">
+        <attr name="sib_filterColor_pressed" format="color" />
+        <attr name="sib_filterColor_disabled" format="color" />
+    </declare-styleable>
+    
+    <declare-styleable name="SwitchButton">
+        <attr name="sb_flip" format="boolean" />
+        <attr name="sb_backgroundColor" format="color" />
+        <attr name="sb_background" format="reference" />
+        <attr name="sb_thumbNormal" format="reference" />
+        <attr name="sb_thumbPressed" format="reference" />
+        <attr name="sb_frame" format="reference" />
+        <attr name="sb_mask" format="reference" />
+    </declare-styleable>
+    
+    <declare-styleable name="CategoryTabbar">
+		<attr name="ctb_textsize" format="dimension"/>  
+        <attr name="ctb_textcolor_normal" format="color" />
+        <attr name="ctb_textcolor_selected" format="color" />
+        <attr name="ctb_padding_left" format="dimension"/>
+        <attr name="ctb_padding_right" format="dimension"/>
+        <attr name="ctb_background_selected" format="reference" />
+        <attr name="ctb_left_edge" format="reference" />
+        <attr name="ctb_right_edge" format="reference" />
+    </declare-styleable>
+    
+	<declare-styleable name="LinkedTextView">   
+        <attr name="ltv_showOnly" format="boolean" />
+        <attr name="ltv_linkColor" format="color" />
+        <attr name="ltv_pattern" format="string" />
+        <attr name="ltv_patterns" format="reference" />
+	</declare-styleable>	
+	
+	<declare-styleable name="TextLineView">   
+        <attr name="tl_editable" format="boolean" />
+        <attr name="tl_name" format="string" />
+        <attr name="tl_hint" format="string" />
+        <attr name="tl_value" format="string" />
+        <attr name="tl_color" format="color" />
+        <attr name="tl_size" format="dimension" />
+        <attr name="tl_colorHint" format="color" />
+        <attr name="tl_colorName" format="color" />
+        <attr name="tl_colorValue" format="color" />
+        <attr name="tl_cleanIcon" format="boolean" />
+        <attr name="tl_background" format="reference" /> 
+        <attr name="tl_minLeftWidth" format="dimension" />
+        <attr name="tl_widthRatio" format="float" />
+        <attr name="tl_paddingBetween" format="dimension" />
+        <attr name="tl_layoutResId" format="reference" />
+	</declare-styleable>
+	
+	<declare-styleable name="DatePicker">   
+        <attr name="dp_hasYear" format="boolean" />
+        <attr name="dp_hasMonth" format="boolean" />
+        <attr name="dp_hasDay" format="boolean" />
+        <attr name="dp_hasHour" format="boolean" />
+        <attr name="dp_hasMinute" format="boolean" />
+        <attr name="dp_hasSecond" format="boolean" />
+        <attr name="db_background" format="reference" />
+        <attr name="db_centerPanel" format="reference" />
+        <attr name="dp_shadow" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="GifView">
+        <attr name="gif" format="reference" />
+        <attr name="paused" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="NumberPicker">
+        <attr name="np_textSize" format="dimension" />
+        <attr name="np_textColor" format="color" />
+        <attr name="np_dividerColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="AbsSeekbar">
+        <attr name="asb_trackHeight" format="dimension|reference"/>
+        <attr name="asb_trackColor" format="color|reference"/>
+        <attr name="asb_trackFillColor" format="color|reference"/>
+        <attr name="asb_labelTextSize" format="dimension|reference"/>
+        <attr name="asb_labelTextPadding" format="dimension|reference"/>
+        <attr name="asb_minLabelText" format="string|reference"/>
+        <attr name="asb_maxLabelText" format="string|reference"/>
+        <attr name="asb_valueTextSize" format="dimension|reference"/>
+        <attr name="asb_valueTextPadding" format="dimension|reference"/>
+        <attr name="asb_rangeMin" format="float"/>
+        <attr name="asb_rangeMax" format="float"/>
+        <attr name="asb_thumbDrawable" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="RoundCornerImageView">
+        <attr name="rciv_circle" format="boolean" />
+        <attr name="rciv_radius" format="dimension" />
+        <attr name="rciv_placeHolder" format="reference" />
+        <attr name="rciv_background" format="color" />
+    </declare-styleable>
+</resources>
+
+

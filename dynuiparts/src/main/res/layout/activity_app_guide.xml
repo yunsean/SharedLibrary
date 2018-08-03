@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"    
+    xmlns:thiz="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <android.support.v4.view.ViewPager
+        android:id="@+id/content_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:background="#ffaaffaa"/>
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/pageIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:padding="3dip"
+        thiz:radius="5dip"
+        thiz:strokeColor="#ffffffff"/>
+    <ImageButton 
+        android:id="@+id/startImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/guide_over_button_background"
+        android:visibility="gone"
+        android:paddingTop="7dip"
+        android:paddingBottom="7dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+		android:contentDescription="@null"/>
+    <TextView
+        android:id="@+id/startButton"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/guide_over_button_background"
+        android:visibility="gone"
+        android:paddingTop="7dip"
+        android:paddingBottom="7dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        android:text="@string/guide_strat_name"/>
+</RelativeLayout>

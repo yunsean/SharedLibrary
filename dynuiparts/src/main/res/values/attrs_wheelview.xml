@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="WheelView">
+        <attr name="wv_background" format="reference" />
+        <attr name="wv_highlight" format="reference" />
+        <attr name="wv_fontSize" format="dimension" />
+        <attr name="wv_fontBold" format="boolean" />
+        <attr name="wv_fontColor" format="color" />
+        <attr name="wv_visibleCount" format="integer" />
+        <attr name="wv_showShadow" format="boolean" />
+        <attr name="wv_shadowStart" format="color" />
+        <attr name="wv_shadowEnd" format="color" />
+    </declare-styleable>
+</resources>
+
+

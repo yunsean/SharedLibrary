@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="#ffffffff">
+    <ImageView
+	    android:id="@+id/dyn_net_error_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:contentDescription="@null"/> 
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    	android:gravity="center"
+        android:orientation="vertical">
+		<ImageView
+			android:id="@+id/dyn_net_error_image"
+			android:layout_width="84dip"
+			android:layout_height="84dip"
+	        android:layout_gravity="center"
+	        android:background="@null"
+			android:src="@drawable/loading_net_error"
+			android:contentDescription="@null"/>
+	    <TextView 
+	        android:id="@+id/dyn_net_error_tips"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+			android:layout_marginTop="5dip"
+	        android:textColor="#ffff8888"
+	        android:textSize="13sp"
+	        android:text="网络错误，触摸重试"/>
+	</LinearLayout>
+</RelativeLayout>
+

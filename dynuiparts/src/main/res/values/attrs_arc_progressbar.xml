@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ArcProgressBar">
+        <attr name="apb_arcDistance" format="integer"/>
+        <attr name="apb_arcBgColor" format="color"/>
+        <attr name="apb_dottedDefaultColor" format="color"/>
+        <attr name="apb_dottedRunColor" format="color"/>
+        <attr name="apb_dottedLineCount" format="integer"/>
+        <attr name="apb_dottedLineWidth" format="integer"/>
+        <attr name="apb_dottedLineHeight" format="integer"/>
+        <attr name="apb_lineDistance" format="integer"/>
+        <attr name="apb_progressMax" format="integer"/>
+        <attr name="apb_progressTextSize" format="integer"/>
+        <attr name="apb_drawCircle" format="boolean"/>
+    </declare-styleable>
+</resources>
