@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="selector_white_light">#dddddd</color>
+    <color name="selector_white">#ffffff</color>
+    <color name="selector_black">#000000</color>
+    <color name="selector_black_light">#363636</color>
+    <color name="selector_gray">#dcdcdc</color>
+
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="gallerypicker_theme_body">#cc22292c</color>
+    <color name="gallerypicker_status_bar">#303135</color>
+    <color name="gallerypicker_foot_bar">#303135</color>
+    <color name="gallerypicker_top_bar">#9f556061</color>
+    <color name="gallerypicker_topbar_back">#ff353431</color>
+    <color name="gallerypicker_topbar_text">#ffffffff</color>
+</resources>

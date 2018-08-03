@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.dylan.dyn3rdparts">
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+        <activity android:name=".gallerypicker.ImageBaseActivity"/>
+        <activity android:name=".gallerypicker.ImageGridActivity" android:configChanges="orientation|screenSize" android:theme="@style/GalleryPickerTheme"/>
+        <activity android:name=".gallerypicker.ImageCropActivity" android:configChanges="orientation|screenSize" android:hardwareAccelerated="false" android:theme="@style/GalleryPickerTheme"/>
+        <activity android:name=".gallerypicker.ImagePreviewActivity" android:configChanges="orientation|screenSize" android:theme="@style/GalleryPickerFullScreenTheme"/>
+    </application>
+
+</manifest>

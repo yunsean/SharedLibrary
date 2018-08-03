@@ -1,1 +1,1 @@
-include ':dynuiparts', ':dynmedias', ':dyn3rdparts', ":dynkotlins", ':librarytest'
+include ':dynuiparts', ':dynmedias', ':dyn3rdparts', ":dynkotlins"

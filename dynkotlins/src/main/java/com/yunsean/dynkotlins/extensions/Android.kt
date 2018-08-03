@@ -15,6 +15,7 @@ import android.support.annotation.DrawableRes
 import android.support.annotation.IdRes
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -35,8 +36,10 @@ import org.jetbrains.anko.textColor
 import org.json.JSONObject
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.experimental.and
 
 fun Context?.isTabletDevice(): Boolean = if (this == null) false else this.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
 fun Context?.screenWidth(): Int = if (this == null) 0 else this.resources.displayMetrics.widthPixels
@@ -388,8 +391,13 @@ fun Type?.ownerType() : Type? {
 }
 
 fun Array<String?>?.hasNullOrBlank(): Boolean = this?.let { return this.indexOfFirst { it?.let { return@indexOfFirst it.trim().length < 1 } ?: true } >= 0 } ?: true
-fun String?.base64(): String? = if (this != null) Base64.encode(this.toByteArray()) else null
-fun String?.md5(): String? = if (this != null) MD5().update(this).asHex() else null
+fun String?.base64(): String? = if (this != null) Base64.encodeToString(toByteArray(), Base64.DEFAULT) else null
+fun String?.md5(): String? {
+    if (this == null) return null
+    val messagedigest = MessageDigest.getInstance("MD5")
+    messagedigest.update(this.toByteArray())
+    return messagedigest.digest().toHex()
+}
 
 fun TextView?.onChanged(entry : ((Editable?) -> Unit)?) : TextView? {
     this?.addTextChangedListener(object : TextWatcher {
@@ -454,10 +462,6 @@ fun Context.dip2px(dipValue: Float): Int = (dipValue * getResources().getDisplay
 fun Context.px2dip(pxValue: Float): Int = (pxValue / getResources().getDisplayMetrics().density + 0.5f).toInt()
 fun Context.px2sp(pxValue: Float): Int = (pxValue / getResources().getDisplayMetrics().scaledDensity + 0.5f).toInt()
 fun Context.sp2px(spValue: Float): Int = (spValue * getResources().getDisplayMetrics().scaledDensity + 0.5f).toInt()
-
-fun <T> T?.rxbusPost() {
-    this?.let { RxBus2.getDefault().post(this) }
-}
 
 fun Context.getCompactColor(resId: Int): Int {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) resources.getColor(resId, null)
