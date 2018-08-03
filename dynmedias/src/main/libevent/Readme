@@ -1,0 +1,6 @@
+1、使用ndk r12之后的版本来编译；
+2、解压缩libevent-2.1.8-stable.tar.gz，然后将build.sh拷贝到解压后的目录；
+3、进入解压后的目录，执行./configure;
+4、执行make，编译成功后，对应的静态库文件在源码目录的.libs下；
+5、由于Android ndk从r11开始已经废除了arc4random_addrandom方法，但是libevent源码中仍然连接该函数，所以编译动态库或者编译应用so的时候，会出现找不到arc4random_addrandom的问题：
+	修改方法：修改libevent-2.1.8-stable/evutil_rand.c文件，将195行位置的evutil_secure_rng_add_bytes函数使用#ifdef HAVE_ARC4RANDOM_ADDRANDOM屏蔽掉；
