@@ -120,12 +120,14 @@
 #endif
 #include <sys/param.h>
 
+#if 0
 #ifdef __cplusplus
 extern "C" {
 #endif
 const char *strcasestr(const char *haystack, const char *needle);
 #ifdef __cplusplus
 }
+#endif
 #endif
 
 #define OPEN_RDWR O_RDWR
