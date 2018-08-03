@@ -24,7 +24,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.dylan.common.application.Application
-import com.dylan.common.digest.Base64
 import com.dylan.common.digest.MD5
 import com.dylan.common.rx.RxBus2
 import com.dylan.common.utils.Utility
