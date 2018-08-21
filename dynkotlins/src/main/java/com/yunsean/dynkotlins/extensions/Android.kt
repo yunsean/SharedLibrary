@@ -24,8 +24,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.dylan.common.application.Application
-import com.dylan.common.digest.MD5
-import com.dylan.common.rx.RxBus2
 import com.dylan.common.utils.Utility
 import com.dylan.uiparts.views.ToastEx
 import com.yunsean.dynkotlins.R
@@ -38,7 +36,6 @@ import java.lang.reflect.Type
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.experimental.and
 
 fun Context?.isTabletDevice(): Boolean = if (this == null) false else this.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
 fun Context?.screenWidth(): Int = if (this == null) 0 else this.resources.displayMetrics.widthPixels
@@ -53,7 +50,7 @@ interface OnDialogItemClickedListener {
 interface OnDismissListener {
     fun onDismiss()
 }
-fun Context.createDialog(dialogResId: Int, setting: OnSettingDialogListener? = null, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dismiss: OnDismissListener? = null, dismissDelay: Int = 0, dialogWidth: Int = 0, styleResId: Int = R.style.CenterDialog): Dialog {
+fun Context.createDialog(dialogResId: Int, setting: OnSettingDialogListener? = null, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dismiss: OnDismissListener? = null, dismissDelay: Int = 0, dialogWidth: Int = 0, styleResId: Int = R.style.CenterDialog, cancelable: Boolean = false): Dialog {
     var dialogWidth = dialogWidth
     val view = LayoutInflater.from(this).inflate(dialogResId, null)
     val dialog = Dialog(this, styleResId)
@@ -72,15 +69,16 @@ fun Context.createDialog(dialogResId: Int, setting: OnSettingDialogListener? = n
     window.setWindowAnimations(R.style.DialogBottomAnimate)
     dialog.onWindowAttributesChanged(wl)
     if (dismissDelay > 0) Handler().postDelayed({ dialog.dismiss() }, dismissDelay.toLong())
+    dialog.setCancelable(cancelable)
     return dialog
 }
-fun Context.showDialog(dialogResId: Int, setting: OnSettingDialogListener? = null, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dismiss: OnDismissListener? = null, dismissDelay: Int = 0, dialogWidth: Int = 0, styleResId: Int = R.style.CenterDialog): Dialog {
-    val dialog = this.createDialog(dialogResId, setting, clickableResId, clicked, dismiss, dismissDelay, dialogWidth, styleResId)
+fun Context.showDialog(dialogResId: Int, setting: OnSettingDialogListener? = null, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dismiss: OnDismissListener? = null, dismissDelay: Int = 0, dialogWidth: Int = 0, styleResId: Int = R.style.CenterDialog, cancelable: Boolean = false): Dialog {
+    val dialog = this.createDialog(dialogResId, setting, clickableResId, clicked, dismiss, dismissDelay, dialogWidth, styleResId, cancelable)
     dialog.show()
     return dialog
 }
 
-fun Context.createBottomDialog(dialogResId: Int, setting: OnSettingDialogListener?, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dialogWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT): Dialog {
+fun Context.createBottomDialog(dialogResId: Int, setting: OnSettingDialogListener?, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dialogWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT, cancelable: Boolean = false): Dialog {
     val view = LayoutInflater.from(this).inflate(dialogResId, null)
     val dialog = Dialog(this, com.dylan.uiparts.R.style.BottomDialog)
     setting?.onSettingDialog(dialog, view)
@@ -98,10 +96,11 @@ fun Context.createBottomDialog(dialogResId: Int, setting: OnSettingDialogListene
     wl.height = dialogHeight
     window.setWindowAnimations(com.dylan.uiparts.R.style.DialogBottomAnimate)
     dialog.onWindowAttributesChanged(wl)
+    dialog.setCancelable(cancelable)
     return dialog
 }
-fun Context.showBottomDialog(dialogResId: Int, setting: OnSettingDialogListener?, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dialogWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT) {
-    this.createBottomDialog(dialogResId, setting, clickableResId, clicked, dialogWidth, dialogHeight).show()
+fun Context.showBottomDialog(dialogResId: Int, setting: OnSettingDialogListener?, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dialogWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT, cancelable: Boolean = false) {
+    this.createBottomDialog(dialogResId, setting, clickableResId, clicked, dialogWidth, dialogHeight, cancelable).show()
 }
 
 fun Context.showMessage(title: String, msg: String, btn1: String = "OK", listener1: DialogInterface.OnClickListener? = null, btn2: String? = null, listener2: DialogInterface.OnClickListener? = null) {

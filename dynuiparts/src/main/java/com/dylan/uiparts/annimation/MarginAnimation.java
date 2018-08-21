@@ -29,16 +29,16 @@ public class MarginAnimation extends Animation {
 		mMargin = margin;
 		switch (mMargin) {
 		case Top:
-			mMarginStart = view.getTop();
+			mMarginStart = mViewLayoutParams.topMargin;
 			break;
 		case Bottom:
-			mMarginStart = view.getBottom();
+			mMarginStart = mViewLayoutParams.bottomMargin;
 			break;
 		case Left:
-			mMarginStart = view.getLeft();
+			mMarginStart = mViewLayoutParams.leftMargin;
 			break;
 		case Right:
-			mMarginStart = view.getRight();
+			mMarginStart = mViewLayoutParams.rightMargin;
 			break;
 		}
 		mAnimatedView.requestLayout();
