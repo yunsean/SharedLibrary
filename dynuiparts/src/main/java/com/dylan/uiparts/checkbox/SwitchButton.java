@@ -13,8 +13,10 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
 import android.widget.CheckBox;
@@ -157,9 +159,13 @@ public class SwitchButton extends CheckBox {
         this.postDelayed(new Runnable() {
             @Override
             public void run() {
+                superPerformClick();
                 setChecked(checked);
             }
         }, 10);
+    }
+    private void superPerformClick() {
+        super.performClick();
     }
 
     public void setChecked(boolean checked) {
@@ -255,7 +261,6 @@ public class SwitchButton extends CheckBox {
     @SuppressLint("ClickableViewAccessibility")
 	@Override
     public boolean performClick() {
-        super.performClick();
         startAnimation(!mChecked);
         return true;
     }
