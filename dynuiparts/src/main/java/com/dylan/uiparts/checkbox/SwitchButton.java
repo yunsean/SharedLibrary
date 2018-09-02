@@ -255,6 +255,7 @@ public class SwitchButton extends CheckBox {
     @SuppressLint("ClickableViewAccessibility")
 	@Override
     public boolean performClick() {
+        super.performClick();
         startAnimation(!mChecked);
         return true;
     }
