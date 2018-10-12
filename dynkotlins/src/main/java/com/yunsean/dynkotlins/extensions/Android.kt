@@ -364,7 +364,7 @@ fun Intent.start(context: Activity, requestCode: Int) {
 
 fun Throwable?.toastex() {
     Application.context()?.let {
-        ToastEx.makeText(Application.context(), this?.message, Toast.LENGTH_SHORT).show()
+        ToastEx.makeText(Application.context(), this?.localizedMessage, Toast.LENGTH_SHORT).show()
     }
     this?.printStackTrace()
 }
