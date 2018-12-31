@@ -3,8 +3,10 @@ package com.dylan.medias.player;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.media.MediaCodec;
 import android.media.MediaFormat;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
@@ -232,9 +234,13 @@ public class MxPlayerView extends RelativeLayout implements Callback, OnClickLis
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		Canvas canvas = holder.lockCanvas();
-		canvas.drawColor(Color.BLACK);
-		holder.unlockCanvasAndPost(canvas);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            holder.setFormat(PixelFormat.TRANSPARENT);
+        } else {
+            Canvas canvas = holder.lockCanvas();
+            canvas.drawColor(Color.BLACK);
+            holder.unlockCanvasAndPost(canvas);
+        }
 	}
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
