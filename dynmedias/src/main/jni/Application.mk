@@ -19,7 +19,7 @@ APP_CPPFLAGS        := -std=c++11 -frtti -fexceptions
 # c++ 库指定: 默认情况下，NDK的编译系统为最小的C++运行时库（/system/lib/libstdc++.so）提供C++头文件。
 # 然而，NDK的C++的实现,可以让你使用或着链接在自己的应用程序中。
 # APP_STL 			:= stlport_static
-APP_STL 			:= gnustl_static
+APP_STL 			:= c++_static
 
 # 通过APP_MODULES显示指定只编译这些模块，同时也可以通过改选项强制编译那些默认未被编译的静态库
 # APP_MODULES			:= libPocoFoundation libPocoNet
