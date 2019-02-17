@@ -48,6 +48,7 @@ public class MxOverlay implements Runnable {
     private int inputFourCC = MxFormatConvert.FOURCC_I420;
 
     private boolean addStamp = true;
+    private boolean includeMs = false;
 
     private int imageWidth = 0;
     private int imageHeight = 0;
@@ -124,6 +125,10 @@ public class MxOverlay implements Runnable {
     }
     public MxOverlay setAddStamp(boolean addStamp) {
         this.addStamp = addStamp;
+        return this;
+    }
+    public MxOverlay setIncludeMs(boolean includeMs) {
+        this.includeMs = includeMs;
         return this;
     }
     public void overlay(MediaCodec.BufferInfo bufferInfo, ByteBuffer byteBuffer) {
@@ -253,16 +258,18 @@ public class MxOverlay implements Runnable {
     }
 
     private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+    private SimpleDateFormat mFormatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.CHINA);
     private long mLatestTimecode = 0;
     private Bitmap timecodeBitmap(int imageWidth) {
-        long timecode = System.currentTimeMillis() / 1000;
+        long time = System.currentTimeMillis() / 1000;
+        long timecode = includeMs ? System.currentTimeMillis() : time;
         if (timecode == mLatestTimecode) return null;
-        String text = mFormatter.format(new Date());
+        String text = includeMs ? mFormatter1.format(new Date()) : mFormatter.format(new Date());
         TextPaint paint = new TextPaint();
         paint.setAntiAlias(true);
         paint.setSubpixelText(true);
         paint.setStyle(Paint.Style.FILL);
-        if (timecode == 0)paint.setColor(Color.BLACK);
+        if (time % 2 == 0)paint.setColor(Color.DKGRAY);
         else paint.setColor(Color.GRAY);
         paint.setTextSize(15 * imageWidth / 640);
         paint.setTextAlign(Paint.Align.CENTER);
@@ -275,7 +282,7 @@ public class MxOverlay implements Runnable {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         canvas.drawRect(0, 0, width, height, paint);
-        if (timecode % 2 == 0) paint.setColor(Color.WHITE);
+        if (time % 2 == 0) paint.setColor(Color.WHITE);
         else paint.setColor(Color.BLACK);
         canvas.drawText(text, width / 2, base, paint);
         mLatestTimecode = timecode;
