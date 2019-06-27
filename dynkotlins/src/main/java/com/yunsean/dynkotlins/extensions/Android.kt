@@ -50,6 +50,28 @@ interface OnDialogItemClickedListener {
 interface OnDismissListener {
     fun onDismiss()
 }
+fun Context.createDialog(dialogResId: Int, setting: ((dialog: Dialog, contentView: View)-> Unit)? = null, clickableResId: IntArray? = null, clicked: ((dialog: Dialog, contentView: View, clickedView: View)-> Unit)? = null, dismiss: OnDismissListener? = null, dismissDelay: Int = 0, dialogWidth: Int = 0, styleResId: Int = R.style.CenterDialog, cancelable: Boolean = false): Dialog {
+    var dialogWidth = dialogWidth
+    val view = LayoutInflater.from(this).inflate(dialogResId, null)
+    val dialog = Dialog(this, styleResId)
+    setting?.let{ it(dialog, view) }
+    if (clicked != null && clickableResId != null) {
+        for (i in clickableResId) view.findViewById<View>(i).setOnClickListener { v -> clicked(dialog, view, v) }
+    }
+    dialog.setTitle(null)
+    dialog.setCancelable(true)
+    if (dismiss != null) dialog.setOnDismissListener { dismiss.onDismiss() }
+    dialog.setContentView(view)
+    dialogWidth = if (dialogWidth != 0) dialogWidth else if (this.isTabletDevice()) this.screenWidth() * 4 / 10 else this.screenWidth() * 8 / 10
+    val window = dialog.window
+    val wl = window!!.attributes
+    wl.width = dialogWidth
+    window.setWindowAnimations(R.style.DialogBottomAnimate)
+    dialog.onWindowAttributesChanged(wl)
+    if (dismissDelay > 0) Handler().postDelayed({ dialog.dismiss() }, dismissDelay.toLong())
+    dialog.setCancelable(cancelable)
+    return dialog
+}
 fun Context.createDialog(dialogResId: Int, setting: OnSettingDialogListener? = null, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dismiss: OnDismissListener? = null, dismissDelay: Int = 0, dialogWidth: Int = 0, styleResId: Int = R.style.CenterDialog, cancelable: Boolean = false): Dialog {
     var dialogWidth = dialogWidth
     val view = LayoutInflater.from(this).inflate(dialogResId, null)
@@ -60,7 +82,7 @@ fun Context.createDialog(dialogResId: Int, setting: OnSettingDialogListener? = n
     }
     dialog.setTitle(null)
     dialog.setCancelable(true)
-    if (dismiss != null) dialog.setOnDismissListener { dismiss!!.onDismiss() }
+    if (dismiss != null) dialog.setOnDismissListener { dismiss.onDismiss() }
     dialog.setContentView(view)
     dialogWidth = if (dialogWidth != 0) dialogWidth else if (this.isTabletDevice()) this.screenWidth() * 4 / 10 else this.screenWidth() * 8 / 10
     val window = dialog.window
@@ -77,7 +99,33 @@ fun Context.showDialog(dialogResId: Int, setting: OnSettingDialogListener? = nul
     dialog.show()
     return dialog
 }
+fun Context.showDialog(dialogResId: Int, setting: ((dialog: Dialog, contentView: View)-> Unit)? = null, clickableResId: IntArray? = null, clicked: ((dialog: Dialog, contentView: View, clickedView: View)-> Unit)? = null, dismiss: OnDismissListener? = null, dismissDelay: Int = 0, dialogWidth: Int = 0, styleResId: Int = R.style.CenterDialog, cancelable: Boolean = false): Dialog {
+    val dialog = this.createDialog(dialogResId, setting, clickableResId, clicked, dismiss, dismissDelay, dialogWidth, styleResId, cancelable)
+    dialog.show()
+    return dialog
+}
 
+fun Context.createBottomDialog(dialogResId: Int, setting: ((dialog: Dialog, contentView: View)-> Unit)?, clickableResId: IntArray? = null, clicked: ((dialog: Dialog, contentView: View, clickedView: View)-> Unit)? = null, dialogWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT, cancelable: Boolean = false): Dialog {
+    val view = LayoutInflater.from(this).inflate(dialogResId, null)
+    val dialog = Dialog(this, com.dylan.uiparts.R.style.BottomDialog)
+    setting?.let { it(dialog, view) }
+    dialog.setTitle(null)
+    dialog.setContentView(view)
+    dialog.setCancelable(true)
+    if (clicked != null) {
+        clickableResId?.forEach { view.findViewById<View>(it)?.setOnClickListener { v -> clicked(dialog, view, v) } }
+    }
+    val window = dialog.window
+    val wl = window!!.attributes
+    wl.x = 0
+    wl.y = Utility.getScreenHeight(this)
+    wl.width = dialogWidth
+    wl.height = dialogHeight
+    window.setWindowAnimations(com.dylan.uiparts.R.style.DialogBottomAnimate)
+    dialog.onWindowAttributesChanged(wl)
+    dialog.setCancelable(cancelable)
+    return dialog
+}
 fun Context.createBottomDialog(dialogResId: Int, setting: OnSettingDialogListener?, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dialogWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT, cancelable: Boolean = false): Dialog {
     val view = LayoutInflater.from(this).inflate(dialogResId, null)
     val dialog = Dialog(this, com.dylan.uiparts.R.style.BottomDialog)
@@ -100,6 +148,9 @@ fun Context.createBottomDialog(dialogResId: Int, setting: OnSettingDialogListene
     return dialog
 }
 fun Context.showBottomDialog(dialogResId: Int, setting: OnSettingDialogListener?, clickableResId: IntArray? = null, clicked: OnDialogItemClickedListener? = null, dialogWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT, cancelable: Boolean = false) {
+    this.createBottomDialog(dialogResId, setting, clickableResId, clicked, dialogWidth, dialogHeight, cancelable).show()
+}
+fun Context.showBottomDialog(dialogResId: Int, setting: ((dialog: Dialog, contentView: View)-> Unit)?, clickableResId: IntArray? = null, clicked: ((dialog: Dialog, contentView: View, clickedView: View)-> Unit)? = null, dialogWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT, cancelable: Boolean = false) {
     this.createBottomDialog(dialogResId, setting, clickableResId, clicked, dialogWidth, dialogHeight, cancelable).show()
 }
 
@@ -445,6 +496,27 @@ fun String?.kdateTime(format: String = "yyyy-MM-dd HH:mm:ss"): Date? = try { if 
 fun Calendar?.kdate(): String? = this?.time.kdate()
 fun Calendar?.ktime(): String? = this?.time.ktime()
 fun Calendar?.kdateTime(format: String = "yyyy-MM-dd HH:mm:ss"): String? = this?.time.kdateTime(format)
+fun Calendar?.setBegin(): Calendar? {
+    if (this == null) return null
+    set(Calendar.HOUR_OF_DAY, 0)
+    set(Calendar.MINUTE, 0)
+    set(Calendar.SECOND, 0)
+    return this
+}
+fun Calendar?.setEnd(): Calendar? {
+    if (this == null) return null
+    set(Calendar.HOUR_OF_DAY, 23)
+    set(Calendar.MINUTE, 59)
+    set(Calendar.SECOND, 59)
+    return this
+}
+fun Calendar?.setTime(hour: Int, minute: Int, second: Int = 0): Calendar? {
+    if (this == null) return null
+    set(Calendar.HOUR_OF_DAY, hour)
+    set(Calendar.MINUTE, minute)
+    set(Calendar.SECOND, second)
+    return this
+}
 
 fun Long?.kdate(): String? = if (this != null) Date(this).kdate() else null
 fun Long?.ktime(): String? = if (this != null) Date(this).ktime() else null

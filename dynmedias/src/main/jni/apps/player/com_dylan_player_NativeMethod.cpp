@@ -236,9 +236,7 @@ int avio_decode_interrupt_cb(void* flag) {
 JNIEXPORT jlong JNICALL Java_com_dylan_medias_stream_NativeMethod_native_1init(JNIEnv* env, jobject thiz) {
     wle("Java_com_dylan_medias_stream_NativeMethod_native_1init");
 	av_register_all();
-    wle("1");
 	avformat_network_init();
-    wle("2");
     CPlayer* player = new CPlayer();
     if (!player->init() ) {
         delete player;

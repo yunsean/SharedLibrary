@@ -102,7 +102,7 @@ public class Dialogs {
 		return dialog;
 	}
 	public static WaitingDialog showWait(Context context, int resId, String tips, OnCancelListener onCancel) {
-		return showWait(context, R.layout.dialog_wating, 0, tips, onCancel);
+		return showWait(context, resId, 0, tips, onCancel);
 	}
 	public static WaitingDialog showWait(Context context, String tips, OnCancelListener onCancel) {
 		return showWait(context, R.layout.dialog_wating, tips, onCancel);

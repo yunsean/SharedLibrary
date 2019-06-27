@@ -36,7 +36,8 @@ include $(OPENCV_MK)
 
 LOCAL_CFLAGS			:= -DNO_ICONV -D__STDC_CONSTANT_MACROS
 LOCAL_CPPFLAGS          += -std=gnu++11
-LOCAL_SRC_FILES		 	:=  ./com_dylan_live_overlay_NativeMethod.cpp
+LOCAL_SRC_FILES		 	:=  ./com_dylan_live_overlay_NativeMethod.cpp \
+                            ./OverlayYuv.cpp
 
 LOCAL_MODULE    		:= $(APPS_JACKER_LIB)
 
