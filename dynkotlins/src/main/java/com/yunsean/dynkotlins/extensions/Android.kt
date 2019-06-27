@@ -498,6 +498,7 @@ fun Calendar?.ktime(): String? = this?.time.ktime()
 fun Calendar?.kdateTime(format: String = "yyyy-MM-dd HH:mm:ss"): String? = this?.time.kdateTime(format)
 fun Calendar.beginOfDay(): Calendar {
     val calendar = Calendar.getInstance()
+    calendar.time = calendar.time
     calendar.set(Calendar.HOUR_OF_DAY, 0)
     calendar.set(Calendar.MINUTE, 0)
     calendar.set(Calendar.SECOND, 0)
@@ -505,6 +506,7 @@ fun Calendar.beginOfDay(): Calendar {
 }
 fun Calendar.endOfDay(): Calendar {
     val calendar = Calendar.getInstance()
+    calendar.time = calendar.time
     calendar.set(Calendar.HOUR_OF_DAY, 23)
     calendar.set(Calendar.MINUTE, 59)
     calendar.set(Calendar.SECOND, 59)
