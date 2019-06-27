@@ -496,26 +496,34 @@ fun String?.kdateTime(format: String = "yyyy-MM-dd HH:mm:ss"): Date? = try { if 
 fun Calendar?.kdate(): String? = this?.time.kdate()
 fun Calendar?.ktime(): String? = this?.time.ktime()
 fun Calendar?.kdateTime(format: String = "yyyy-MM-dd HH:mm:ss"): String? = this?.time.kdateTime(format)
-fun Calendar?.setBegin(): Calendar? {
-    if (this == null) return null
+fun Calendar.begin(): Calendar {
+    val calendar = Calendar.getInstance()
+    calendar.set(Calendar.HOUR_OF_DAY, 0)
+    calendar.set(Calendar.MINUTE, 0)
+    calendar.set(Calendar.SECOND, 0)
+    return calendar
+}
+fun Calendar.end(): Calendar {
+    val calendar = Calendar.getInstance()
+    calendar.set(Calendar.HOUR_OF_DAY, 23)
+    calendar.set(Calendar.MINUTE, 59)
+    calendar.set(Calendar.SECOND, 59)
+    return calendar
+}
+fun Calendar.setBegin() {
     set(Calendar.HOUR_OF_DAY, 0)
     set(Calendar.MINUTE, 0)
     set(Calendar.SECOND, 0)
-    return this
 }
-fun Calendar?.setEnd(): Calendar? {
-    if (this == null) return null
+fun Calendar.setEnd() {
     set(Calendar.HOUR_OF_DAY, 23)
     set(Calendar.MINUTE, 59)
     set(Calendar.SECOND, 59)
-    return this
 }
-fun Calendar?.setTime(hour: Int, minute: Int, second: Int = 0): Calendar? {
-    if (this == null) return null
+fun Calendar.setTime(hour: Int, minute: Int, second: Int = 0) {
     set(Calendar.HOUR_OF_DAY, hour)
     set(Calendar.MINUTE, minute)
     set(Calendar.SECOND, second)
-    return this
 }
 
 fun Long?.kdate(): String? = if (this != null) Date(this).kdate() else null
