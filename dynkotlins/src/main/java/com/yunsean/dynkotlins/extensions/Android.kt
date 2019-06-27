@@ -496,26 +496,26 @@ fun String?.kdateTime(format: String = "yyyy-MM-dd HH:mm:ss"): Date? = try { if 
 fun Calendar?.kdate(): String? = this?.time.kdate()
 fun Calendar?.ktime(): String? = this?.time.ktime()
 fun Calendar?.kdateTime(format: String = "yyyy-MM-dd HH:mm:ss"): String? = this?.time.kdateTime(format)
-fun Calendar.begin(): Calendar {
+fun Calendar.beginOfDay(): Calendar {
     val calendar = Calendar.getInstance()
     calendar.set(Calendar.HOUR_OF_DAY, 0)
     calendar.set(Calendar.MINUTE, 0)
     calendar.set(Calendar.SECOND, 0)
     return calendar
 }
-fun Calendar.end(): Calendar {
+fun Calendar.endOfDay(): Calendar {
     val calendar = Calendar.getInstance()
     calendar.set(Calendar.HOUR_OF_DAY, 23)
     calendar.set(Calendar.MINUTE, 59)
     calendar.set(Calendar.SECOND, 59)
     return calendar
 }
-fun Calendar.setBegin() {
+fun Calendar.setBeginOfDay() {
     set(Calendar.HOUR_OF_DAY, 0)
     set(Calendar.MINUTE, 0)
     set(Calendar.SECOND, 0)
 }
-fun Calendar.setEnd() {
+fun Calendar.setEndOfDay() {
     set(Calendar.HOUR_OF_DAY, 23)
     set(Calendar.MINUTE, 59)
     set(Calendar.SECOND, 59)
