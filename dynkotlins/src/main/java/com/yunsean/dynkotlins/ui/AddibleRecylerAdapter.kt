@@ -3,6 +3,7 @@ package com.yoga.utils
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import com.yunsean.dynkotlins.ui.SimpleItemTouchHelperCallback
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
