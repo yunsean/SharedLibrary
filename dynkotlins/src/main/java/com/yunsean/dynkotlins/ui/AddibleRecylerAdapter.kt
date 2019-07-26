@@ -1,30 +1,27 @@
-package com.yunsean.dynkotlins.ui
+package com.yoga.utils
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import cn.com.thinkwatch.ihass2.R
-import cn.com.thinkwatch.ihass2.ui.AutomationEditActivity
-import com.yunsean.dynkotlins.ui.RecyclerAdapter
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class AddibleRecylerAdapter<T>(val layoutResourceId: Int,
-                               val items: MutableList<T>,
+                               var items: MutableList<T>? = null,
                                val init: (View, Int, T, ViewHolder<T>) -> Unit) :
         RecyclerView.Adapter<AddibleRecylerAdapter.ViewHolder<T>>(),
         SimpleItemTouchHelperCallback.ItemTouchHelperAdapter {
 
-    private var createLayoutResId: Int = 0
-    private var onCreateClicked: (()->Unit)? = null
+    private var addLayoutResId: Int = 0
+    private var onAddClicked: (()->Unit)? = null
 
-    fun setOnCreateClicked(createLayoutResId: Int, onCreate: ()->Unit): AddibleRecylerAdapter<T> {
-        this.createLayoutResId = createLayoutResId
-        this.onCreateClicked = onCreate
+    fun setupAddible(addLayoutResId: Int, onAdd: ()->Unit): AddibleRecylerAdapter<T> {
+        this.addLayoutResId = addLayoutResId
+        this.onAddClicked = onAdd
         return this
     }
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-        items.let {
+        items?.let {
             val panel = it.get(fromPosition)
             it.removeAt(fromPosition)
             it.add(toPosition, panel)
@@ -33,7 +30,7 @@ class AddibleRecylerAdapter<T>(val layoutResourceId: Int,
         return false
     }
     override fun onItemDismiss(position: Int) {
-        items.removeAt(position)
+        items?.removeAt(position)
         notifyItemRemoved(position)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
@@ -41,20 +38,20 @@ class AddibleRecylerAdapter<T>(val layoutResourceId: Int,
         return ViewHolder(view, init)
     }
     override fun onBindViewHolder(holder: ViewHolder<T>, position: Int) {
-        if (position < items.size) holder.bindForecast(position, items[position])
-        else holder.itemView.onClick { onCreateClicked?.invoke() }
+        items?.let {
+            if (position < it.size) holder.bindForecast(position, it[position])
+            else holder.itemView.onClick { onAddClicked?.invoke() }
+        } ?: holder.itemView.onClick { onAddClicked?.invoke() }
     }
     override fun getItemViewType(position: Int): Int {
-        if (position < items.size) return layoutResourceId
-        else return createLayoutResId
+        if (position < items?.size ?: 0) return layoutResourceId
+        else return addLayoutResId
     }
-    override fun getItemCount() = items.size + (if (createLayoutResId == 0) 0 else 1)
+    override fun getItemCount() = (items?.size ?: 0) + (if (addLayoutResId == 0) 0 else 1)
 
     class ViewHolder<T>(view: View, val init: (View, Int, T, ViewHolder<T>) -> Unit) : RecyclerView.ViewHolder(view) {
         fun bindForecast(index: Int, item: T) {
-            with(item) {
-                try { init(itemView, index, item, this@ViewHolder) } catch (ex: Exception) { ex.printStackTrace() }
-            }
+            try { init(itemView, index, item, this@ViewHolder) } catch (ex: Exception) { ex.printStackTrace() }
         }
     }
 }

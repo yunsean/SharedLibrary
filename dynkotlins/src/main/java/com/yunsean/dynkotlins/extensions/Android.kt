@@ -498,7 +498,7 @@ fun Calendar?.ktime(): String? = this?.time.ktime()
 fun Calendar?.kdateTime(format: String = "yyyy-MM-dd HH:mm:ss"): String? = this?.time.kdateTime(format)
 fun Calendar.beginOfDay(): Calendar {
     val calendar = Calendar.getInstance()
-    calendar.time = calendar.time
+    calendar.time = this.time
     calendar.set(Calendar.HOUR_OF_DAY, 0)
     calendar.set(Calendar.MINUTE, 0)
     calendar.set(Calendar.SECOND, 0)
@@ -506,7 +506,7 @@ fun Calendar.beginOfDay(): Calendar {
 }
 fun Calendar.endOfDay(): Calendar {
     val calendar = Calendar.getInstance()
-    calendar.time = calendar.time
+    calendar.time = this.time
     calendar.set(Calendar.HOUR_OF_DAY, 23)
     calendar.set(Calendar.MINUTE, 59)
     calendar.set(Calendar.SECOND, 59)
@@ -527,6 +527,26 @@ fun Calendar.setTime(hour: Int, minute: Int, second: Int = 0) {
     set(Calendar.MINUTE, minute)
     set(Calendar.SECOND, second)
 }
+var Calendar.year: Int
+    get() = this.get(Calendar.YEAR)
+    set(value) = this.set(Calendar.YEAR, value)
+var Calendar.month: Int
+    get() = this.get(Calendar.MONTH)
+    set(value) = this.set(Calendar.MONTH, value)
+var Calendar.day: Int
+    get() = this.get(Calendar.DAY_OF_MONTH)
+    set(value) = this.set(Calendar.DAY_OF_MONTH, value)
+val Calendar.dayOfWeek: Int
+    get() = this.get(Calendar.DAY_OF_WEEK)
+var Calendar.hour: Int
+    get() = this.get(Calendar.HOUR_OF_DAY)
+    set(value) = this.set(Calendar.HOUR_OF_DAY, value)
+var Calendar.minute: Int
+    get() = this.get(Calendar.MINUTE)
+    set(value) = this.set(Calendar.MINUTE, value)
+var Calendar.second: Int
+    get() = this.get(Calendar.SECOND)
+    set(value) = this.set(Calendar.SECOND, value)
 
 fun Long?.kdate(): String? = if (this != null) Date(this).kdate() else null
 fun Long?.ktime(): String? = if (this != null) Date(this).ktime() else null

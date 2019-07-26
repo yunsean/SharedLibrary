@@ -21,12 +21,11 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 
-
 class SimpleItemTouchHelperCallback(
         private val adapter: ItemTouchHelperAdapter,
         private val longPressEnabled: Boolean = true) : ItemTouchHelper.Callback() {
 
-    private final val ALPHA_FULL = 1.0f
+    private val ALPHA_FULL = 1.0f
 
     override fun isLongPressDragEnabled(): Boolean = longPressEnabled
     override fun isItemViewSwipeEnabled(): Boolean = false
@@ -34,11 +33,11 @@ class SimpleItemTouchHelperCallback(
         if (recyclerView.layoutManager is GridLayoutManager) {
             val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
             val swipeFlags = 0
-            return ItemTouchHelper.Callback.makeMovementFlags(dragFlags, swipeFlags)
+            return makeMovementFlags(dragFlags, swipeFlags)
         } else {
             val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
             val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
-            return ItemTouchHelper.Callback.makeMovementFlags(dragFlags, swipeFlags)
+            return makeMovementFlags(dragFlags, swipeFlags)
         }
     }
     override fun onMove(recyclerView: RecyclerView, source: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -67,7 +66,7 @@ class SimpleItemTouchHelperCallback(
         super.onSelectedChanged(viewHolder, actionState)
     }
 
-    override fun clearView(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder) {
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
         viewHolder.itemView.alpha = ALPHA_FULL
         if (viewHolder is ItemTouchHelperViewHolder)
