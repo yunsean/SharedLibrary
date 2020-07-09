@@ -17,7 +17,7 @@
 
 <view
     xmlns:android="http://schemas.android.com/apk/res/android"
-    class="choi.ccb.com.topsnackbarlibrary.SnackbarContentLayout"
+    class="com.dylan.uiparts.topsnackbar.SnackbarContentLayout"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
