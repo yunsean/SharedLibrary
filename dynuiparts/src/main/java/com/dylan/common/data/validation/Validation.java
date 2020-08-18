@@ -1,6 +1,6 @@
 package com.dylan.common.data.validation;
 
-import android.databinding.ObservableField;
+import androidx.databinding.ObservableField;
 
 import com.dylan.common.data.validation.constraint.Constraint;
 import com.dylan.common.data.validation.constraint.ConstraintValidator;

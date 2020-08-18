@@ -3,7 +3,7 @@ package com.dylan.dyn3rdparts.imageslider;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Message;
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;

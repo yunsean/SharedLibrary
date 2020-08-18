@@ -15,18 +15,19 @@
  */
 package com.dylan.uiparts.topsnackbar;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.RestrictTo;
-import android.support.design.R;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.RestrictTo;
+import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.dylan.uiparts.R;
 
 /**
  * @hide
@@ -48,8 +49,7 @@ public class SnackbarContentLayout extends LinearLayout implements
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SnackbarLayout);
         mMaxWidth = a.getDimensionPixelSize(R.styleable.SnackbarLayout_android_maxWidth, -1);
-        mMaxInlineActionWidth = a.getDimensionPixelSize(
-                R.styleable.SnackbarLayout_maxActionInlineWidth, -1);
+        mMaxInlineActionWidth = a.getDimensionPixelSize(R.styleable.SnackbarLayout_maxActionInlineWidth, -1);
         a.recycle();
     }
 

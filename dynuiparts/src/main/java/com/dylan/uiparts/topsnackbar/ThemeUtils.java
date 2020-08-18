@@ -19,11 +19,11 @@ package com.dylan.uiparts.topsnackbar;
 import android.content.Context;
 import android.content.res.TypedArray;
 
+import com.dylan.uiparts.R;
+
 class ThemeUtils {
 
-    private static final int[] APPCOMPAT_CHECK_ATTRS = {
-            android.support.v7.appcompat.R.attr.colorPrimary
-    };
+    private static final int[] APPCOMPAT_CHECK_ATTRS = { R.attr.colorPrimary };
 
     static void checkAppCompatTheme(Context context) {
         TypedArray a = context.obtainStyledAttributes(APPCOMPAT_CHECK_ATTRS);

@@ -11,8 +11,8 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Handler
-import android.support.annotation.DrawableRes
-import android.support.annotation.IdRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Base64
@@ -402,7 +402,7 @@ fun Context.intent(clazz: Class<*>) : Intent = Intent(this, clazz)
 fun Intent.start(context: Context) {
     context.startActivity(this)
 }
-fun Intent.start(fragment: android.support.v4.app.Fragment) {
+fun Intent.start(fragment: androidx.fragment.app.Fragment) {
     fragment.startActivity(this)
 }
 fun Intent.flag(flags: Int): Intent {

@@ -1,12 +1,12 @@
 package com.yunsean.dynkotlins.ui
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import org.jetbrains.anko.layoutInflater
 
 class RecyclerAdapter<T>(val layoutResourceId: Int, items: List<T>? = null, val init: (View, Int, T) -> Unit) :
-        RecyclerView.Adapter<RecyclerAdapter.ViewHolder<T>>() {
+        androidx.recyclerview.widget.RecyclerView.Adapter<RecyclerAdapter.ViewHolder<T>>() {
 
     var items: List<T>? = null
     set(value) {
@@ -29,7 +29,7 @@ class RecyclerAdapter<T>(val layoutResourceId: Int, items: List<T>? = null, val 
 
     override fun getItemCount() = items?.size ?: 0
 
-    class ViewHolder<in T>(view: View, val init: (View, Int, T) -> Unit) : RecyclerView.ViewHolder(view) {
+    class ViewHolder<in T>(view: View, val init: (View, Int, T) -> Unit) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         fun bindForecast(index: Int, item: T) {
             with(item) {
                 try { init(itemView, index, item) } catch (ex: Exception) { ex.printStackTrace() }

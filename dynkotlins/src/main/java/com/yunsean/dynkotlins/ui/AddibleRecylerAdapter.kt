@@ -1,6 +1,6 @@
 package com.yunsean.dynkotlins.ui
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.yunsean.dynkotlins.ui.SimpleItemTouchHelperCallback
@@ -10,7 +10,7 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 class AddibleRecylerAdapter<T>(val layoutResourceId: Int,
                                var items: MutableList<T>? = null,
                                val init: (View, Int, T, ViewHolder<T>) -> Unit) :
-        RecyclerView.Adapter<AddibleRecylerAdapter.ViewHolder<T>>(),
+        androidx.recyclerview.widget.RecyclerView.Adapter<AddibleRecylerAdapter.ViewHolder<T>>(),
         SimpleItemTouchHelperCallback.ItemTouchHelperAdapter {
 
     private var addLayoutResId: Int = 0
@@ -50,7 +50,7 @@ class AddibleRecylerAdapter<T>(val layoutResourceId: Int,
     }
     override fun getItemCount() = (items?.size ?: 0) + (if (addLayoutResId == 0) 0 else 1)
 
-    class ViewHolder<T>(view: View, val init: (View, Int, T, ViewHolder<T>) -> Unit) : RecyclerView.ViewHolder(view) {
+    class ViewHolder<T>(view: View, val init: (View, Int, T, ViewHolder<T>) -> Unit) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         fun bindForecast(index: Int, item: T) {
             try { init(itemView, index, item, this@ViewHolder) } catch (ex: Exception) { ex.printStackTrace() }
         }

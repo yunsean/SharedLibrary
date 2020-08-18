@@ -10,6 +10,9 @@ android {
         versionCode 200
         versionName "2.0.1"
         multiDexEnabled true
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
     }
     buildTypes {
         release {
@@ -45,7 +48,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:23.+'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'io.reactivex:rxandroid:1.2.1'

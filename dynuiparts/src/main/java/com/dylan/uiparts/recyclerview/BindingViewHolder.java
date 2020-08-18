@@ -1,7 +1,7 @@
 package com.dylan.uiparts.recyclerview;
 
-import android.databinding.ViewDataBinding;
-import android.support.v7.widget.RecyclerView;
+import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class BindingViewHolder<T extends ViewDataBinding> extends RecyclerView.ViewHolder {
     private T mBinding = null;

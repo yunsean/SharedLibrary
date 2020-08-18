@@ -1,8 +1,8 @@
 package com.dylan.common.sketch;
 
 import android.content.Context;
-import android.support.annotation.ColorInt;
-import android.support.annotation.InterpolatorRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.InterpolatorRes;
 import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 

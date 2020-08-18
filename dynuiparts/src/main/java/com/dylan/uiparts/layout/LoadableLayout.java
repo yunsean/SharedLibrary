@@ -1,8 +1,8 @@
 package com.dylan.uiparts.layout;
 
 import android.content.Context;
-import android.support.annotation.AnimRes;
-import android.support.annotation.LayoutRes;
+import androidx.annotation.AnimRes;
+import androidx.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,17 +1,17 @@
 package com.yunsean.dynkotlins.ui
 
-import android.support.v4.util.SparseArrayCompat
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.collection.SparseArrayCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewGroup
 
-class RecyclerAdapterWrapper<T: RecyclerView.ViewHolder>(
-        val adapter: RecyclerView.Adapter<T>) : RecyclerView.Adapter<RecyclerAdapterWrapper.Companion.ViewHolder<T>>() {
+class RecyclerAdapterWrapper<T: androidx.recyclerview.widget.RecyclerView.ViewHolder>(
+        val adapter: androidx.recyclerview.widget.RecyclerView.Adapter<T>) : androidx.recyclerview.widget.RecyclerView.Adapter<RecyclerAdapterWrapper.Companion.ViewHolder<T>>() {
 
-    private val headerViews = SparseArrayCompat<View>()
-    private val footViews = SparseArrayCompat<View>()
+    private val headerViews = androidx.collection.SparseArrayCompat<View>()
+    private val footViews = androidx.collection.SparseArrayCompat<View>()
 
     private val realItemCount: Int
         get() = adapter.itemCount
@@ -40,8 +40,8 @@ class RecyclerAdapterWrapper<T: RecyclerView.ViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
-        return if (headerViews.get(viewType) != null) ViewHolder<T>(true, headerViews.get(viewType))
-        else if (footViews.get(viewType) != null) ViewHolder<T>(true, footViews.get(viewType))
+        return if (headerViews.get(viewType) != null) ViewHolder<T>(true, headerViews.get(viewType)!!)
+        else if (footViews.get(viewType) != null) ViewHolder<T>(true, footViews.get(viewType)!!)
         else ViewHolder(adapter.onCreateViewHolder(parent, viewType))
     }
     override fun getItemViewType(position: Int): Int {
@@ -50,13 +50,13 @@ class RecyclerAdapterWrapper<T: RecyclerView.ViewHolder>(
         else adapter.getItemViewType(position - headersCount)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder<T>?, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder<T>, position: Int) {
         holder?.holder?.let { adapter.onBindViewHolder(it, position - headersCount) }
     }
     override fun getItemCount(): Int = headersCount + footersCount + realItemCount
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         onAttachedToRecyclerView(adapter, recyclerView, object : SpanSizeCallback {
-            override fun getSpanSize(layoutManager: GridLayoutManager, oldLookup: GridLayoutManager.SpanSizeLookup, position: Int): Int {
+            override fun getSpanSize(layoutManager: androidx.recyclerview.widget.GridLayoutManager, oldLookup: androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup, position: Int): Int {
                 val viewType = getItemViewType(position)
                 return if (headerViews.get(viewType) != null) layoutManager.getSpanCount()
                 else if (footViews.get(viewType) != null) layoutManager.getSpanCount()
@@ -65,21 +65,21 @@ class RecyclerAdapterWrapper<T: RecyclerView.ViewHolder>(
         })
     }
 
-    override fun onViewAttachedToWindow(holder: ViewHolder<T>?) {
+    override fun onViewAttachedToWindow(holder: ViewHolder<T>) {
         holder?.let {
             it.holder?.let { adapter.onViewAttachedToWindow(it) } ?: setFullSpan(it)
         }
     }
 
     private interface SpanSizeCallback {
-        fun getSpanSize(layoutManager: GridLayoutManager, oldLookup: GridLayoutManager.SpanSizeLookup, position: Int): Int
+        fun getSpanSize(layoutManager: androidx.recyclerview.widget.GridLayoutManager, oldLookup: androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup, position: Int): Int
     }
-    private fun onAttachedToRecyclerView(innerAdapter: RecyclerView.Adapter<*>, recyclerView: RecyclerView, callback: SpanSizeCallback) {
+    private fun onAttachedToRecyclerView(innerAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>, recyclerView: androidx.recyclerview.widget.RecyclerView, callback: SpanSizeCallback) {
         innerAdapter.onAttachedToRecyclerView(recyclerView)
         val layoutManager = recyclerView.layoutManager
-        if (layoutManager is GridLayoutManager) {
+        if (layoutManager is androidx.recyclerview.widget.GridLayoutManager) {
             val spanSizeLookup = layoutManager.spanSizeLookup
-            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            layoutManager.spanSizeLookup = object : androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     return callback.getSpanSize(layoutManager, spanSizeLookup, position)
                 }
@@ -87,9 +87,9 @@ class RecyclerAdapterWrapper<T: RecyclerView.ViewHolder>(
             layoutManager.spanCount = layoutManager.spanCount
         }
     }
-    private fun setFullSpan(holder: RecyclerView.ViewHolder) {
+    private fun setFullSpan(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder) {
         val lp = holder.itemView.layoutParams
-        if (lp != null && lp is StaggeredGridLayoutManager.LayoutParams) {
+        if (lp != null && lp is androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams) {
             lp.setFullSpan(true)
         }
     }
@@ -99,7 +99,8 @@ class RecyclerAdapterWrapper<T: RecyclerView.ViewHolder>(
     companion object {
         private val BASE_ITEM_TYPE_HEADER = 100000
         private val BASE_ITEM_TYPE_FOOTER = 200000
-        class ViewHolder<T: RecyclerView.ViewHolder>(val headerOrFooter: Boolean, view: View?): RecyclerView.ViewHolder(view) {
+        class ViewHolder<T: androidx.recyclerview.widget.RecyclerView.ViewHolder>(val headerOrFooter: Boolean, view: View):
+                androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
             constructor(holder: T): this(false, holder.itemView) { this.holder = holder }
             var holder: T? = null
         }
