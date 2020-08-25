@@ -277,7 +277,7 @@ public class SwitchButton extends CheckBox {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.saveLayerAlpha(mSaveLayerRectF, mAlpha, 0);
+        canvas.saveLayerAlpha(mSaveLayerRectF, mAlpha, Canvas.ALL_SAVE_FLAG);
         canvas.drawBitmap(mMask, 0, mExtendOffsetY, mPaint);
         mPaint.setXfermode(mXfermode);
         canvas.drawBitmap(mBottom, mRealPos, mExtendOffsetY, mPaint);
