@@ -205,7 +205,7 @@ public class Drawables {
 		int left = (w - w2) / 2 + offsetX;
 		int top = (h - h2) / 2 + offsetY;
 		canvas.drawBitmap(logo, left, top, paint);
-		canvas.save(Canvas.ALL_SAVE_FLAG);
+		canvas.save();
 		canvas.restore();
 		return newBitmap;
 	}

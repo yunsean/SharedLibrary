@@ -40,8 +40,8 @@ class RecyclerAdapterWrapper<T: RecyclerView.ViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
-        return if (headerViews.get(viewType) != null) ViewHolder<T>(true, headerViews.get(viewType))
-        else if (footViews.get(viewType) != null) ViewHolder<T>(true, footViews.get(viewType))
+        return if (headerViews.get(viewType) != null) ViewHolder<T>(true, headerViews.get(viewType)!!)
+        else if (footViews.get(viewType) != null) ViewHolder<T>(true, footViews.get(viewType)!!)
         else ViewHolder(adapter.onCreateViewHolder(parent, viewType))
     }
     override fun getItemViewType(position: Int): Int {
@@ -50,7 +50,7 @@ class RecyclerAdapterWrapper<T: RecyclerView.ViewHolder>(
         else adapter.getItemViewType(position - headersCount)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder<T>?, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder<T>, position: Int) {
         holder?.holder?.let { adapter.onBindViewHolder(it, position - headersCount) }
     }
     override fun getItemCount(): Int = headersCount + footersCount + realItemCount
@@ -65,7 +65,7 @@ class RecyclerAdapterWrapper<T: RecyclerView.ViewHolder>(
         })
     }
 
-    override fun onViewAttachedToWindow(holder: ViewHolder<T>?) {
+    override fun onViewAttachedToWindow(holder: ViewHolder<T>) {
         holder?.let {
             it.holder?.let { adapter.onViewAttachedToWindow(it) } ?: setFullSpan(it)
         }

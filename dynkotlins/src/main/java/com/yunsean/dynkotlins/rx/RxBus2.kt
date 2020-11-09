@@ -31,7 +31,7 @@ class RxBus2 {
         }
     }
     fun unregister(compositeDisposable: CompositeDisposable?) {
-        compositeDisposable?.dispose()
+        compositeDisposable?.clear()
     }
     fun post(event: Any) {
         subjectBus.onNext(event)
