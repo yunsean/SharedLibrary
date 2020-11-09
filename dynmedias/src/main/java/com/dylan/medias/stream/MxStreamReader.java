@@ -1,14 +1,17 @@
 package com.dylan.medias.stream;
 
 import android.media.MediaFormat;
+import android.util.Log;
 
 import com.dylan.medias.codec.MxAvcConfig;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 
 public class MxStreamReader implements Runnable {
 
-	enum Codec{None, Avc, Aac, Mp3, Alaw}
+	enum Codec{None, Avc, Hevc, Aac, Mp3, Alaw}
 	public interface Callback {
 		void onPrepered();
 		void onVideoFrame(long timecode, byte[] data, int offset, int size, boolean key);
@@ -201,10 +204,21 @@ public class MxStreamReader implements Runnable {
 		}
 		MxAvcConfig parser = new MxAvcConfig();
 		if (!parser.parse(sps)) return "Parse sps sequence failed.";
-		videoFormat = MediaFormat.createVideoFormat("video/avc", parser.getWidth(), parser.getHeight());
+		videoFormat = MediaFormat.createVideoFormat("video/avc", 1280, 720);
 		if (sps != null)videoFormat.setByteBuffer("csd-0", ByteBuffer.wrap(sps));
 		if (pps != null)videoFormat.setByteBuffer("csd-1", ByteBuffer.wrap(pps));
         markFormatBuffer(videoFormat);
+		return null;
+	}
+	private String parseHvcCConfig(byte[] config) {
+		return "Unsupport HvcC mode.";
+	}
+	private String parseHevcConfig(byte[] config) {
+		if (config == null || config.length < 4) return "Invalid hevc config.";
+		if (config[0] != 0x00 || config[1] != 0x00) return parseHvcCConfig(config);
+		videoFormat = MediaFormat.createVideoFormat("video/hevc", 1280, 720);
+		videoFormat.setByteBuffer("csd-0", ByteBuffer.wrap(config));
+		markFormatBuffer(videoFormat);
 		return null;
 	}
 	void markFormatBuffer(MediaFormat format) {
@@ -270,8 +284,11 @@ public class MxStreamReader implements Runnable {
 			if (videoCodec == NativeMethod.Codec_Avc) {
 				String error = parseAvcConfig(NativeMethod.native_videoExtraData(nativeHandle));
 				if (error != null) return error;
+			} else if (videoCodec == NativeMethod.Codec_Hevc) {
+				String error = parseHevcConfig(NativeMethod.native_videoExtraData(nativeHandle));
+				if (error != null) return error;
 			} else {
-				videoIndex = 0;
+				videoIndex = -1;
 			}
 			if (audioCodec == NativeMethod.Codec_Aac) {
 				String error = parseAacConfig(NativeMethod.native_audioExtraData(nativeHandle));
@@ -283,7 +300,7 @@ public class MxStreamReader implements Runnable {
 				String error = parseAlamConfig(NativeMethod.native_audioExtraData(nativeHandle));
 				if (error != null) return error;
 			} else {
-				audioIndex = 0;
+				audioIndex = -1;
 			}
 			if (callback != null) {
 				if (firstConnected) callback.onPrepered();
@@ -331,7 +348,7 @@ public class MxStreamReader implements Runnable {
 			}
 		}
 		if (begin >= 0 && begin < (offset + length - 4)) {
-			if (callback != null && nalType(datas, begin) <= 0x05) callback.onVideoFrame(timecode, datas, begin, offset + length - begin, key);
+			if (callback != null/* && nalType(datas, begin) <= 0x05*/) callback.onVideoFrame(timecode, datas, begin, offset + length - begin, key);
 		}
 	}
 	private void onAudioFrame(long timecode, byte[] data, int offset, int size) {

@@ -1,0 +1,49 @@
+ffmpeg 编译
+
+1、下载并解压缩：ffmpeg-4.3.1.tar.xz
+2、下载ndk并解压：android-ndk-r21b
+3、使用ubuntu 20.04（Docker即可），进入ffmpeg解压缩后的目录进行编译
+
+export NDK=/ffmpeg/android-ndk-r21b
+export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64/
+export API=16
+export ARCH=arm
+export CPU=armv7-a
+export CC=$TOOLCHAIN/bin/armv7a-linux-androideabi$API-clang
+export CXX=$TOOLCHAIN/bin/armv7a-linux-androideabi$API-clang++
+export SYSROOT=$NDK/toolchains/llvm/prebuilt/linux-x86_64/sysroot
+export CROSS_PREFIX=$TOOLCHAIN/bin/arm-linux-androideabi-
+export PREFIX=$(pwd)/android/$CPU
+export OPTIMIZE_CFLAGS="-mfloat-abi=softfp -mfpu=vfp -marm -march=$CPU "
+
+./configure \
+    --prefix=$PREFIX \
+    --disable-neon \
+    --disable-hwaccels \
+    --disable-gpl \
+    --disable-postproc \
+    --enable-jni \
+    --disable-mediacodec \
+    --disable-decoder=h264_mediacodec \
+    --disable-doc \
+    --disable-programs \
+    --disable-everything \
+    --disable-symver \
+    --enable-decoder=aac,aac_latm,amrnb,amrwb,mp3,pcm_alaw,pcm_mulaw \
+    --enable-encoder=aac,pcm_alaw \
+    --enable-parser=aac,aac_latm,h264,hevc,mpeg4video,vp8,vp9 \
+    --enable-protocol=file,hls,http,rtmp,rtp,udp \
+    --enable-demuxer=aac,amr,amrnb,amrwb,avi,h264,hevc,hls,pcm_alaw,flv,mp3,rtp,rtsp,wav,mpegts \
+    --enable-muxer=adts,amr,flv,h264,hevc,hls,mp3,mp4,mpegts,pcm_alaw,rtp,rtsp,wav \
+    --enable-bsf=h264_redundant_pps,h264_metadata,hevc_metadata \
+    --cross-prefix=$CROSS_PREFIX \
+    --target-os=android \
+    --arch=$ARCH \
+    --cpu=$CPU \
+    --cc=$CC \
+    --cxx=$CXX \
+    --enable-cross-compile \
+    --sysroot=$SYSROOT \
+    --extra-cflags="-Os -fpic $OPTIMIZE_CFLAGS" \
+    --extra-ldflags="$ADDI_LDFLAGS" \
+    $ADDITIONAL_CONFIGURE_FLAG

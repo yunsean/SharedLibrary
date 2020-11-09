@@ -1,14 +1,14 @@
-prefix=/Users/Dylan/Coding/svn/as/SharedLibrary/dynmedias/src/main/ffmpeg/ffmpeg-3.2.1/android/arm
+prefix=/ffmpeg/ffmpeg-4.3.1/android/armv7-a
 exec_prefix=${prefix}
-libdir=${prefix}/lib
-includedir=${prefix}/include
+libdir=/ffmpeg/ffmpeg-4.3.1/android/armv7-a/lib
+includedir=/ffmpeg/ffmpeg-4.3.1/android/armv7-a/include
 
 Name: libavfilter
 Description: FFmpeg audio/video filtering library
-Version: 6.65.100
-Requires: libavutil >= 55.34.100
+Version: 7.85.100
+Requires: libavutil >= 56.51.100
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavfilter -lm -lz -pthread
+Libs: -L${libdir}  -lavfilter -pthread -lm
 Libs.private: 
 Cflags: -I${includedir}

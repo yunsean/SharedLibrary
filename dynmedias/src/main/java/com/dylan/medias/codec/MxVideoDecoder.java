@@ -26,6 +26,7 @@ public class MxVideoDecoder implements Runnable {
         close();
         try {
             String mime = format.getString(MediaFormat.KEY_MIME);
+            if (mime.equals(MediaFormat.MIMETYPE_VIDEO_HEVC)) return open2(format, surface, async);
             ByteBuffer sps = format.getByteBuffer("csd-0");
             ByteBuffer pps = format.getByteBuffer("csd-1");
             mediaCodec = MediaCodec.createDecoderByType(mime);
@@ -38,6 +39,24 @@ public class MxVideoDecoder implements Runnable {
             started = true;
             if (sps != null) decode(sps, null, 0, 0, 0, MediaCodec.BUFFER_FLAG_CODEC_CONFIG);
             if (pps != null) decode(pps, null, 0, 0, 0, MediaCodec.BUFFER_FLAG_CODEC_CONFIG);
+            if (async) {
+                thread = new Thread(this);
+                thread.start();
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean open2(MediaFormat format, Surface surface, boolean async) {
+        close();
+        try {
+            String mime = format.getString(MediaFormat.KEY_MIME);
+            mediaCodec = MediaCodec.createDecoderByType(mime);
+            mediaCodec.configure(format, surface, null, 0);
+            mediaCodec.start();
+            started = true;
             if (async) {
                 thread = new Thread(this);
                 thread.start();

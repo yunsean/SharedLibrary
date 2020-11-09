@@ -36,7 +36,7 @@ public:
     }
 
 public:
-    enum Codec{None, Unknown, Avc, Aac, Mp3, Alaw};
+    enum Codec{None, Unknown, Avc, Hevc, Aac, Mp3, Alaw};
 
 public:
     bool init() {
@@ -86,6 +86,18 @@ public:
 						m_bsfs[i] = nullptr;
 					}
 				}
+            } else if (m_context->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO &&
+				m_context->streams[i]->codecpar->codec_id == AV_CODEC_ID_H265) {
+				const AVBitStreamFilter* filter = av_bsf_get_by_name("hevc_mp4toannexb");
+				if (filter != nullptr) {
+					av_bsf_alloc(filter, &m_bsfs[i]);
+					avcodec_parameters_copy(m_bsfs[i]->par_in, m_context->streams[i]->codecpar);
+					int ret = av_bsf_init(m_bsfs[i]);
+					if (ret < 0) {
+						av_bsf_free(&m_bsfs[i]);
+						m_bsfs[i] = nullptr;
+					}
+				}
             }
         }
 		m_bsfHotIndex = -1;
@@ -96,6 +108,8 @@ public:
         switch (m_context->streams[m_videoIndex]->codecpar->codec_id) {
         case AV_CODEC_ID_H264:
         	return Avc;
+        case AV_CODEC_ID_H265:
+        	return Hevc;
         default:
         	return Unknown;
         }

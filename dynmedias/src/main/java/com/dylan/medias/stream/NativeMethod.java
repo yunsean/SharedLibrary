@@ -5,9 +5,10 @@ public class NativeMethod {
 	public final static int Codec_None = 0;
 	public final static int Codec_Unknown = 1;
 	public final static int Codec_Avc = 2;
-	public final static int Codec_Aac = 3;
-    public final static int Codec_Mp3 = 4;
-    public final static int Codec_Alaw = 5;
+    public final static int Codec_Hevc = 3;
+	public final static int Codec_Aac = 4;
+    public final static int Codec_Mp3 = 5;
+    public final static int Codec_Alaw = 6;
 
     public static native long native_init();
     public static native boolean native_open(long handle, String url, boolean tcpOnly);
