@@ -160,7 +160,6 @@ public class TabHost extends FrameLayout implements ViewTreeObserver.OnTouchMode
     public void clearAllTabs() {
         mTabWidget.removeAllViews();
         initTabHost();
-        mTabContent.removeAllViews();
         mTabSpecs.clear();
         requestLayout();
         invalidate();
