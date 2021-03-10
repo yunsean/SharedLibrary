@@ -1,4 +1,4 @@
-> # ### 一个Androider的个人工具库
+# 一个Androider的个人工具库
 
 * 发布版本号，带v（比如v1.0.7.2）为Android Support支持版本库
 
