@@ -55,24 +55,34 @@ class Observer2<T>(private var observable: Observable<T>? = null) : io.reactivex
         this.subscriber2 = subscriber
         return this
     }
-    fun subscribe(subscribe: ((Disposable) -> Unit)? = null) {
+    fun subscribe() {
+        this.observable?.subscribe(this)
+        this.observable = null
+    }
+    fun subscribe(subscribe: ((Disposable) -> Unit)) {
         this.subscribe = subscribe
         this.observable?.subscribe(this)
         this.observable = null
     }
-    fun subscribe(subscriber: Observer2Subscriber? = null) {
+    fun subscribe(subscriber: Observer2Subscriber) {
         this.subscriber2 = subscriber
         this.observable?.subscribe(this)
         this.observable = null
     }
-    fun subscribeOnMain(subscribe: ((Disposable) -> Unit)? = null) {
+    fun subscribeOnMain() {
+        this.observable
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe(this)
+        this.observable = null
+    }
+    fun subscribeOnMain(subscribe: ((Disposable) -> Unit)) {
         this.subscribe = subscribe
         this.observable
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe(this)
         this.observable = null
     }
-    fun subscribeOnMain(subscriber: Observer2Subscriber? = null) {
+    fun subscribeOnMain(subscriber: Observer2Subscriber) {
         this.subscriber2 = subscriber
         this.observable
                 ?.observeOn(AndroidSchedulers.mainThread())
