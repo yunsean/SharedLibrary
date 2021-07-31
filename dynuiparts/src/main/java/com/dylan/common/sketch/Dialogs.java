@@ -151,7 +151,7 @@ public class Dialogs {
 		return createDialog(context, dialogResId, setting, clickableResId, clicked, null, -1, dialogWidth, styleResId);
 	}
 	public static Dialog createDialog(Context context, int dialogResId, OnSettingDialogListener setting, int[] clickableResId, final OnDialogItemClickedListener clicked, final OnDismissListener dismiss, int dismissDelay, int dialogWidth, int styleResId) {
-		return createDialog(context, dialogResId, setting, clickableResId, clicked, dismiss, null, dismissDelay, dialogWidth, styleResId)
+		return createDialog(context, dialogResId, setting, clickableResId, clicked, dismiss, null, dismissDelay, dialogWidth, styleResId);
 	}
 	public static Dialog createDialog(Context context, int dialogResId, OnSettingDialogListener setting, int[] clickableResId, final OnDialogItemClickedListener clicked, final OnDismissListener dismiss, final OnCancelListener canceled, int dismissDelay, int dialogWidth, int styleResId) {
 		final View view = LayoutInflater.from(context).inflate(dialogResId, null);
