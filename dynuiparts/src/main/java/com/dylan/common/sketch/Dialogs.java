@@ -135,8 +135,14 @@ public class Dialogs {
 	public static Dialog createDialog(Context context, int dialogResId, OnSettingDialogListener setting, int[] clickableResId, final OnDialogItemClickedListener clicked, OnDismissListener dismiss) {
 		return createDialog(context, dialogResId, setting, clickableResId, clicked, dismiss, 0, 0, R.style.CenterDialog);
 	}
+	public static Dialog createDialog(Context context, int dialogResId, OnSettingDialogListener setting, int[] clickableResId, final OnDialogItemClickedListener clicked, OnCancelListener canceled) {
+		return createDialog(context, dialogResId, setting, clickableResId, clicked, null, canceled, 0, 0, R.style.CenterDialog);
+	}
 	public static Dialog createDialog(Context context, int dialogResId, OnSettingDialogListener setting, int dismissDelay, final OnDismissListener dismiss) {
 		return createDialog(context, dialogResId, setting, null, null, dismiss, dismissDelay, 0, R.style.CenterDialog);
+	}
+	public static Dialog createDialog(Context context, int dialogResId, OnSettingDialogListener setting, int dismissDelay, final OnCancelListener canceled) {
+		return createDialog(context, dialogResId, setting, null, null, null, canceled, dismissDelay, 0, R.style.CenterDialog);
 	}
 	public static Dialog createDialog(Context context, int dialogResId, OnSettingDialogListener setting, int[] clickableResId, final OnDialogItemClickedListener clicked, int dialogWidth) {
 		return createDialog(context, dialogResId, setting, clickableResId, clicked, dialogWidth, R.style.CenterDialog);
@@ -145,6 +151,9 @@ public class Dialogs {
 		return createDialog(context, dialogResId, setting, clickableResId, clicked, null, -1, dialogWidth, styleResId);
 	}
 	public static Dialog createDialog(Context context, int dialogResId, OnSettingDialogListener setting, int[] clickableResId, final OnDialogItemClickedListener clicked, final OnDismissListener dismiss, int dismissDelay, int dialogWidth, int styleResId) {
+		return createDialog(context, dialogResId, setting, clickableResId, clicked, dismiss, null, dismissDelay, dialogWidth, styleResId)
+	}
+	public static Dialog createDialog(Context context, int dialogResId, OnSettingDialogListener setting, int[] clickableResId, final OnDialogItemClickedListener clicked, final OnDismissListener dismiss, final OnCancelListener canceled, int dismissDelay, int dialogWidth, int styleResId) {
 		final View view = LayoutInflater.from(context).inflate(dialogResId, null);
 		final Dialog dialog = new Dialog(context, styleResId);
 		if (setting != null)setting.onSettingDialog(dialog, view);
@@ -160,6 +169,7 @@ public class Dialogs {
 		}
 		dialog.setTitle(null);
 		dialog.setCancelable(true);
+		dialog.setOnCancelListener(canceled);
 		if (dismiss != null) {
 			dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 				@Override
@@ -195,12 +205,17 @@ public class Dialogs {
 		return createBottomDialog(context, dialogResId, setting, clickableResId, clicked, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 	}
 	public static Dialog createBottomDialog(Context context, int dialogResId, OnSettingDialogListener setting, int[] clickableResId, final OnDialogItemClickedListener clicked, int dialogWidth, int dialogHeight) {
+		return createBottomDialog(context, dialogResId, setting, clickableResId, clicked, null, null, dialogWidth, dialogHeight);
+	}
+	public static Dialog createBottomDialog(Context context, int dialogResId, OnSettingDialogListener setting, int[] clickableResId, final OnDialogItemClickedListener clicked, final DialogInterface.OnDismissListener dismissed, final OnCancelListener canceled, int dialogWidth, int dialogHeight) {
 		final View view = LayoutInflater.from(context).inflate(dialogResId, null);
 		final Dialog dialog = new Dialog(context, R.style.BottomDialog);
 		if (setting != null)setting.onSettingDialog(dialog, view);
 		dialog.setTitle(null);
 		dialog.setContentView(view);
 		dialog.setCancelable(true);
+		dialog.setOnDismissListener(dismissed);
+		dialog.setOnCancelListener(canceled);
 		if (clicked != null) {
 			for (int i : clickableResId) {
 				view.findViewById(i).setOnClickListener(new View.OnClickListener() {

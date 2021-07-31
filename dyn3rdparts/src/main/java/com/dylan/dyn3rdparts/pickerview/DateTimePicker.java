@@ -211,12 +211,12 @@ public class DateTimePicker extends LinearLayout {
 	}
 	public Calendar getDate() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.YEAR, mYearWheel.getCurrentItem() + START_YEAR);
-		calendar.set(Calendar.MONTH, mMonthWheel.getCurrentItem());
-		calendar.set(Calendar.DAY_OF_MONTH, mDayWheel.getCurrentItem() + 1);
-		calendar.set(Calendar.HOUR_OF_DAY, mHourWheel.getCurrentItem());
-		calendar.set(Calendar.MINUTE, mMinuteWheel.getCurrentItem());
 		calendar.set(Calendar.SECOND, mSecondWheel.getCurrentItem());
+		calendar.set(Calendar.MINUTE, mMinuteWheel.getCurrentItem());
+		calendar.set(Calendar.HOUR_OF_DAY, mHourWheel.getCurrentItem());
+		calendar.set(Calendar.DAY_OF_MONTH, mDayWheel.getCurrentItem() + 1);
+		calendar.set(Calendar.MONTH, mMonthWheel.getCurrentItem());
+		calendar.set(Calendar.YEAR, mYearWheel.getCurrentItem() + START_YEAR);
 		return calendar;
 	}
 	public long getTime() {
